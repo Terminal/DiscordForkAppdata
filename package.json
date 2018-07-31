@@ -1,0 +1,22 @@
+{
+  "name": "discordforkappdata",
+  "version": "1.0.0",
+  "description": "Application data for Discord_Fork",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Terminal/DiscordForkAppdata.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Terminal/DiscordForkAppdata/issues"
+  },
+  "homepage": "https://github.com/Terminal/DiscordForkAppdata#readme",
+  "dependencies": {
+    "eris": "^0.8.6"
+  }
+}
