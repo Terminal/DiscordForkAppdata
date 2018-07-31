@@ -22,6 +22,8 @@ client.on('ready', () => {
   console.log('Ready!');
 });
 
+const nullThen = () => {};
+
 client.on('messageCreate', (message) => {
   if (message.author.id === client.user.id) return;
   if (message.author.bot) {
@@ -37,9 +39,9 @@ client.on('messageCreate', (message) => {
   
         fs.writeFile(path.join(__dirname, 'forkdata', `${message.author.id}.json`), fileData, { encoding: 'utf8' }, (error) => {
           if (error) {
-            message.channel.createMessage(`Error writing to file:\n${error.message}`);
+            message.channel.createMessage(`Error writing to file:\n${error.message}`).then(nullThen).catch(nullThen);
           } else {
-            message.channel.createMessage(`Successfully wrote to file:\n${fileData}`);
+            message.channel.createMessage(`Successfully wrote to file:\n${fileData}`).then(nullThen).catch(nullThen);
           }
         })
       }
@@ -58,9 +60,9 @@ client.on('messageCreate', (message) => {
       cwd: path.join(__dirname, 'forkdata')
     }, (error, stdout, stderr) => {
       if (error) {
-        message.channel.createMessage(`Error running command:\n${error.message}`);
+        message.channel.createMessage(`Error running command:\n${error.message}`).then(nullThen).catch(nullThen);
       } else {
-        message.channel.createMessage(`\`\`\`\nstdout\n${stdout}\n\nstderr\n${stderr}\`\`\``);
+        message.channel.createMessage(`\`\`\`\nstdout\n${stdout}\n\nstderr\n${stderr}\`\`\``).then(nullThen).catch(nullThen);
       }
     });
   }
