@@ -55,11 +55,21 @@ client.on('messageCreate', (message) => {
   
         fs.writeFile(path.join(__dirname, 'forkdata', `${message.author.id}.json`), fileData, { encoding: 'utf8' }, (error) => {
           if (error) {
-            message.channel.createMessage(`Error writing to file:\n${error.message}`).then(nullThen).catch(nullThen);
+            message.channel.createMessage(JSON.stringify({
+              message: `Error writing to file`,
+              data: error.message,
+              success: false,
+              for: message.author.id
+            })).then(nullThen).catch(nullThen);
           } else {
-            message.channel.createMessage(`Successfully wrote to file:\n${fileData}`).then(nullThen).catch(nullThen);
+            message.channel.createMessage(JSON.stringify({
+              message: `Success writing to file`,
+              data: fileData,
+              success: true,
+              for: message.author.id
+            })).then(nullThen).catch(nullThen);
           }
-        })
+        });
       }
     } catch (e) {
       // console.log(e);
