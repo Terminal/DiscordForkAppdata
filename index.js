@@ -51,7 +51,7 @@ client.on('messageCreate', (message) => {
         const botCount = parseInt(inData.botCount) || 0;
         if (botCount) outData.botCount = botCount;
   
-        const fileData = JSON.stringify(outData) + '\n';
+        const fileData = JSON.stringify(outData, null, 2) + '\n';
   
         fs.writeFile(path.join(__dirname, 'forkdata', `${message.author.id}.json`), fileData, { encoding: 'utf8' }, (error) => {
           if (error) {
@@ -60,14 +60,14 @@ client.on('messageCreate', (message) => {
               data: error.message,
               success: false,
               for: message.author.id
-            })).then(nullThen).catch(nullThen);
+            }, null, 2)).then(nullThen).catch(nullThen);
           } else {
             message.channel.createMessage(JSON.stringify({
               message: `Success writing to file`,
               data: fileData,
               success: true,
               for: message.author.id
-            })).then(nullThen).catch(nullThen);
+            }, null, 2)).then(nullThen).catch(nullThen);
           }
         });
       }
