@@ -62,7 +62,7 @@ client.on('messageCreate', (message) => {
         })
       }
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       // message.channel.createMessage(`Error encountered:\n${e.message}`);
     }
   }
