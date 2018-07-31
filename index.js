@@ -30,7 +30,7 @@ client.on('messageCreate', (message) => {
     try {
       const inData = JSON.parse(message.content);
   
-      if (typeof inData === 'object') {
+      if (typeof inData === 'object' && inData.for === config.for) {
         const outData = {};
         const botCount = parseInt(inData.botCount) || 0;
         if (botCount) outData.botCount = botCount;
