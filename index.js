@@ -26,7 +26,23 @@ const nullThen = () => {};
 
 client.on('messageCreate', (message) => {
   if (message.author.id === client.user.id) return;
-  if (message.author.bot) {
+  if (config.owners.includes(message.author.id) && message.content === '£push') {
+    child_process.exec('git add .', {
+      cwd: path.join(__dirname, 'forkdata')
+    });
+    child_process.exec(`git commit -m "Manual push by ${message.author.username.replace(/"/g, '\\"')} via Discord"`, {
+      cwd: path.join(__dirname, 'forkdata')
+    });
+    child_process.exec('git push', {
+      cwd: path.join(__dirname, 'forkdata')
+    }, (error, stdout, stderr) => {
+      if (error) {
+        message.channel.createMessage(`Error running command:\n${error.message}`).then(nullThen).catch(nullThen);
+      } else {
+        message.channel.createMessage(`\`\`\`\nstdout\n${stdout}\n\nstderr\n${stderr}\`\`\``).then(nullThen).catch(nullThen);
+      }
+    });
+  } else {
     try {
       const inData = JSON.parse(message.content);
   
@@ -49,22 +65,6 @@ client.on('messageCreate', (message) => {
       console.log(e);
       // message.channel.createMessage(`Error encountered:\n${e.message}`);
     }
-  } else if (config.owners.includes(message.author.id) && message.content === '£push') {
-    child_process.exec('git add .', {
-      cwd: path.join(__dirname, 'forkdata')
-    });
-    child_process.exec(`git commit -m "Manual push by ${message.author.username.replace(/"/g, '\\"')} via Discord"`, {
-      cwd: path.join(__dirname, 'forkdata')
-    });
-    child_process.exec('git push', {
-      cwd: path.join(__dirname, 'forkdata')
-    }, (error, stdout, stderr) => {
-      if (error) {
-        message.channel.createMessage(`Error running command:\n${error.message}`).then(nullThen).catch(nullThen);
-      } else {
-        message.channel.createMessage(`\`\`\`\nstdout\n${stdout}\n\nstderr\n${stderr}\`\`\``).then(nullThen).catch(nullThen);
-      }
-    });
   }
 });
 
