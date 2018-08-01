@@ -48,7 +48,7 @@ client.on('messageCreate', (message) => {
   
       if (typeof inData === 'object' && inData.for === config.for) {
         const outData = {};
-        const botCount = parseInt(inData.botCount) || 0;
+        const botCount = parseInt(inData.botCount, 10) >= 0 ? parseInt(inData.botCount, 10) : 0;
         if (botCount) outData.botCount = botCount;
   
         const fileData = JSON.stringify(outData, null, 2) + '\n';
